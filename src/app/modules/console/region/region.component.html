@@ -1,1 +1,135 @@
-<p>region works!</p>
+<div class="tab-pane fade show active table-responsive-sm"
+     id="regionModel" role="tabpanel"
+     aria-labelledby="regionModel-tab">
+  <p>Add Region</p>
+  <!-- form -->
+  <form [formGroup]="regionForm" class="row g-3 "
+        (ngSubmit)="doOnSaveRegion()"
+  >
+
+    <div class="col-md-3 position-relative">
+
+      <label for="validationRegionId" class="form-label">Id</label>
+      <input type="text"
+             formControlName="id"
+             class="form-control"
+             id="validationRegionId"
+             placeholder="Id Document"
+      >
+    </div>
+    <!-- End ID regionModel -->
+
+    <div class="col-md-3 position-relative">
+      <label for="validationRegionName" class="form-label">Name</label>
+      <input type="text"
+             formControlName="name"
+             class="form-control"
+             id="validationRegionName"
+             placeholder="Name Region"
+             required>
+
+      <div *ngIf="regionForm.invalid" class="invalid-tooltip">
+        Please choose a unique and valid name.
+      </div>
+    </div>
+
+    <!-- End NAME regionModel -->
+
+    <div class="col-md-3 position-relative">
+      <label for="validationRegionCode" class="form-label">Code</label>
+      <input type="text"
+             formControlName="code"
+             class="form-control"
+             id="validationRegionCode"
+             placeholder="Code Region"
+             required>
+      <div class="invalid-tooltip">
+        Please choose a unique and valid code.
+      </div>
+    </div>
+    <!-- End CODE regionModel -->
+    <!--
+   <div class="col-md-3 position-relative">
+     <label for="validationRegionUuId" class="form-label">Uuid</label>
+     <input type="text" class="form-control" id="validationRegionUuId"
+            value="90b4b61c-18ce-45ed-9531-075de6c585c4" required>
+     <div class="valid-tooltip">
+       Looks good!
+     </div>
+   </div>
+    End UUID regionModel -->
+    <div class="col-12">
+      <button class="btn btn-primary"
+              [disabled]="!regionForm.valid"
+              type="submit">
+        {{ operation }}
+      </button>
+    </div>
+  </form>
+
+  <!-- form -->
+  <!-- Bordered Table th:if="${not #list.isEmpty(regions)}"-->
+  <p>List Region: <b>({{ regions.length }})</b></p>
+  <!-- Center aligned spinner -->
+  @if (spinners) {
+    <div class="d-flex justify-content-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden-focusable">Loading...</span>
+      </div>
+    </div><!-- End Center aligned spinner -->
+  }
+
+
+  @if (regions.length == 0) {
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      A simple danger alert—check it out!
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  } @else {
+    <table class="table table-hover table-bordered ">
+      <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Code</th>
+        <th scope="col">Name</th>
+        <th scope="col">Status</th>
+        <th scope="col">Options</th>
+      </tr>
+      </thead>
+      <tbody>
+
+        @for (region of regions; track region; let i = $index) {
+          <tr>
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ region.code }}</td>
+            <td>{{ region.name }}</td>
+            @if (region.deleted) {
+              <td>
+                <span class="badge bg-danger">Inactive</span>
+              </td>
+            } @else {
+              <td>
+                <span class="badge bg-success">Active</span>
+              </td>
+            }
+            <td>
+              <a class="btn btn-secondary m-1"
+                 type="button" (click)="updateRegion(region)">
+                <i class="bi bi-pencil"></i>
+              </a>
+              <a class="btn btn-danger m-1" type="button" (click)="doOnDeleteRegionById(region.id)">
+                <i class="bi bi-eraser"></i>
+              </a>
+              <a href="#" class="btn btn-info m-1" type="button">
+                <i class="bi bi-server"></i>
+              </a>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+    <!-- End Bordered Table -->
+  }
+
+
+</div>
