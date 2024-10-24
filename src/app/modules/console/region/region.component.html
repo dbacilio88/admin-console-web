@@ -86,9 +86,17 @@
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
   } @else {
+    <!-- Centered Pagination -->
+    <app-pagination
+      [totalPages]="totalPages"
+      [currentPage]="currentPage+1"
+      (pageChange)="onPageChange($event)"
+    ></app-pagination>
+    <!-- End Centered Pagination -->
     <table class="table table-hover table-bordered ">
       <thead>
       <tr>
+        <th scope="col"></th>
         <th scope="col">Id</th>
         <th scope="col">Code</th>
         <th scope="col">Name</th>
@@ -99,10 +107,13 @@
       <tbody>
 
         @for (region of regions; track region; let i = $index) {
-          <tr>
+          <tr class="text-center align-content-center">
+            <th scope="row">
+              <input type="checkbox">
+            </th>
             <th scope="row">{{ i + 1 }}</th>
             <td>{{ region.code }}</td>
-            <td>{{ region.name }}</td>
+            <td class="text-start">{{ region.name }}</td>
             @if (region.deleted) {
               <td>
                 <span class="badge bg-danger">Inactive</span>
@@ -129,6 +140,8 @@
       </tbody>
     </table>
     <!-- End Bordered Table -->
+
+
   }
 
 

@@ -1,7 +1,8 @@
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, distinctUntilChanged, Observable} from 'rxjs';
 import {Region} from '../models/region.model';
+import {ResponseModel} from '../models/response.model';
 
 
 @Injectable({
@@ -43,5 +44,11 @@ export class RegionService {
     return this.currentListRegionSubject.getValue();
   }
 
+  doOnGetPaginationRegion(page: number, size: number): Observable<ResponseModel> {
+    const params = new HttpParams()
+      .set("page", page.toString())
+      .set("size", size.toString());
+    return this.http.get<ResponseModel>(`/region/page`, {params: params});
+  }
 
 }

@@ -6,7 +6,8 @@ import {RouterLink, RouterLinkActive} from '@angular/router';
 import {Region} from '../models/region.model';
 import {catchError, combineLatest, tap, throwError} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {NgIf} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
+import PaginationComponent from '../../../shared/ui/pagination/pagination.component';
 
 interface RegionForm {
   id: FormControl<string>;
@@ -17,7 +18,7 @@ interface RegionForm {
 @Component({
   selector: 'app-region',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLinkActive, RouterLink, NgIf],
+  imports: [ReactiveFormsModule, RouterLinkActive, RouterLink, NgIf, PaginationComponent, NgForOf],
   templateUrl: './region.component.html',
   styleUrl: './region.component.css'
 })
@@ -28,6 +29,8 @@ export default class RegionComponent implements OnInit {
   errors: Errors = {errors: {}}
   regions: Region[] = []
   destroyRef = inject(DestroyRef);
+  totalPages: number = 5;
+  currentPage: number = 1;
 
   constructor(
     private regionService: RegionService,
@@ -48,27 +51,30 @@ export default class RegionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.doOnGetAllRegion();
+    this.doOnGetAllRegion(this.currentPage);
     this.regionService.currentListRegion.subscribe(region => {
       this.regions = region;
-    })
+    });
+
+
   }
 
-  doOnGetAllRegion(): void {
+  doOnGetAllRegion(page: number): void {
+
     combineLatest([
-      this.regionService.doOnGetAllRegion()
+      this.regionService.doOnGetPaginationRegion(page, 5)
     ]).pipe(tap(() => this.spinners = true))
       .pipe(catchError((err) => {
         return throwError(() => err);
       }))
-      .subscribe(([regions]) => {
-        console.log(regions);
-        this.regions = regions;
-        this.regionService.updateRegions(regions);
+      .subscribe(([response]) => {
+        console.log(response);
+        this.regions = response.content;
+        this.regionService.updateRegions(response.content);
+        this.currentPage = response.pageable.pageNumber;
+        this.totalPages = response.totalPages;
         this.spinners = false;
-      })
-
-
+      });
   }
 
   doOnDeleteRegionById(id: string): void {
@@ -149,5 +155,11 @@ export default class RegionComponent implements OnInit {
         control.markAsPristine()
       }
     })
+  }
+
+  onPageChange(page: number) {
+    console.log(page)
+
+    this.doOnGetAllRegion(page);
   }
 }
