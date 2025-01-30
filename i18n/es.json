@@ -1,0 +1,52 @@
+{
+  "application": {
+    "title": "hello demo",
+    "start": "Empezar",
+    "menu": {
+      "home": "Inicio",
+      "about": "Acerca de",
+      "services": "Servicios",
+      "portfolio": "Portafolio",
+      "team": "Equipo",
+      "contact": "Contacto",
+      "language": "Idioma"
+    },
+    "home": {
+      "title": "Aumente sus conocimientos con Bacsystem",
+      "description": "Somos un equipo de desarrolladores apasionados por la creación de soluciones de código, diseñadas para optimizar el aprendizaje y la productividad en cada proyecto."
+    },
+    "contact": {
+      "title": "Contacto",
+      "description": "",
+      "address": "Dirección",
+      "email": "Envíenos un correo electrónico",
+      "number": "Llámanos",
+      "button": "Enviar Mensaje"
+    },
+    "about": {
+      "title": "Sobre nosotros",
+      "description": "Conozca nuestra historia, misión y cómo podemos ayudarlo a crear soluciones tecnológicas personalizables.",
+      "subject": "Introducción",
+      "reference": "Nos apasiona desarrollar software de calidad. Nuestra misión es ofrecer soluciones prácticas, educativas y de negocio que ayuden a personas y organizaciones a aprender, crecer y lanzar sus propios proyectos tecnológicos.",
+      "button": "Sobre nosotros",
+      "cards": {
+        "item1": {
+          "label": "Misión",
+          "description": "Nuestra Misión facilitar el acceso a proyectos de software listos para implementar, promoviendo el aprendizaje y la innovación."
+        },
+        "item2": {
+          "label": "Visión",
+          "description": "Ser la plataforma líder para adquirir soluciones de código personalizable en el Perú"
+        },
+        "item3": {
+          "label": "Valores",
+          "description": "Innovación, Compromiso, Educación y Calidad"
+        },
+        "item4": {
+          "label": "Equipo",
+          "description": "Somos desarrolladores con experiencia en tecnologías como Java, Golang, Spring Boot, Angular y mucho más."
+        }
+      }
+    }
+  }
+}
