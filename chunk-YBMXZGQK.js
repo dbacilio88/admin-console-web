@@ -1,1 +1,0 @@
-import{Pa as a,Qa as o,V as n,Xa as m,_a as p}from"./chunk-IPQY23QI.js";import"./chunk-4CLCTAJ7.js";var i=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=n({type:t,selectors:[["app-team"]],standalone:!0,features:[p],decls:2,vars:0,template:function(e,r){e&1&&(a(0,"p"),m(1,"team works!"),o())}})};export{i as TeamComponent};
