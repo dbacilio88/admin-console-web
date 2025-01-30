@@ -1,3 +1,0 @@
-deploy:
-https://www.youtube.com/watch?v=SMuB3qYjDUw
-https://github.com/ngx-translate/core
